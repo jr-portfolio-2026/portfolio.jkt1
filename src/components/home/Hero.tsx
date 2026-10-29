@@ -1,59 +1,48 @@
 import { motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { home } from "@/content/home";
+import { site } from "@/content/site";
 import { ease } from "./motion";
-import { Globe } from "./Globe";
-
-/**
- * Which headline voice the hero uses. Both live in content/home.ts.
- *   "statement" — "Always discovering. / Always learning. / Always making."
- *                 the closing line is set in gold, a little smaller.
- *   "fields"    — "International law, trade and business, read through digital systems."
- */
-const HEADLINE_VARIANT: "statement" | "fields" = "statement";
 
 export function Hero({ ready }: { ready: boolean }) {
   const h = home.hero;
-  const show = ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 };
-
   return (
-    <section id="top" aria-labelledby="hero-h" className="relative flex min-h-[100svh] items-center overflow-hidden">
-      {/* The plate sits behind the type, bleeding off the right edge. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 right-[-26vw] w-[88vw] max-w-[1180px] -translate-y-1/2 opacity-40 md:right-[-18vw] md:left-[54%] md:w-auto md:max-w-none md:opacity-70"
-      >
-        <Globe />
-      </div>
+    <section id="top" className="relative flex min-h-[92svh] items-end px-6 pb-12 pt-28 md:px-10 md:pb-20">
+      <div className="relative mx-auto w-full max-w-[90rem]">
+        <div className="mb-10 flex items-center justify-between gap-4 border-b border-navy/10 pb-4 md:mb-12">
+          <span className="meta-label">{h.dossier}</span>
+          <span className="meta-soft">{h.contexts}</span>
+        </div>
 
-      <div className="wrap relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={show} transition={{ duration: 1.1, ease }}>
-          {HEADLINE_VARIANT === "statement" ? (
-            <h1 id="hero-h" className="mb-[clamp(36px,5vh,56px)] max-w-[24ch] font-serif text-[clamp(2.3rem,5.1vw,4.3rem)] leading-[1.1] font-light text-relief">
-              {h.statement.map((line, i) =>
-                i === h.statement.length - 1 ? (
-                  <span key={line} className="block text-[0.84em] text-gold-ink">{line}</span>
-                ) : (
-                  <span key={line} className="block">{line}</span>
-                ),
-              )}
+        <div className="grid items-end gap-10 lg:grid-cols-[1.2fr_.8fr] lg:gap-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: 1.1, ease }}>
+            <p className="meta-label mb-6 text-gold-ink md:mb-7">{site.name}</p>
+            <h1 className="max-w-5xl font-serif text-[clamp(3.1rem,7vw,7.25rem)] leading-[.94] font-light text-relief">
+              {h.headline.before}
+              <em className="font-normal text-navy">{h.headline.emphasis}</em>
+              {h.headline.after}
             </h1>
-          ) : (
-            <h1 id="hero-h" className="mb-[clamp(36px,5vh,56px)] max-w-[20ch] font-serif text-[clamp(2rem,4vw,3.4rem)] leading-[1.14] font-light text-relief">
-              {h.fields.before}
-              <em className="font-normal text-gold-ink italic">{h.fields.emphasis}</em>
-            </h1>
-          )}
+          </motion.div>
 
-          <p className="max-w-[44ch] border-l border-stone pl-6 text-[clamp(1.05rem,1.5vw,1.28rem)] leading-[1.65] text-navy-deep/85">
-            {h.lede}
-          </p>
-        </motion.div>
+          <motion.div className="lg:pb-2" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ delay: 0.55, duration: 1 }}>
+            <p className="font-serif text-2xl leading-snug text-navy-deep">{h.lede}</p>
+            <p className="meta-label mt-5 text-gold-ink">{home.tagline.first} {home.tagline.second}</p>
+            <p className="mt-5 max-w-lg text-sm leading-7 text-navy-deep/75">{h.sub}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild className="h-12 rounded-none px-7">
+                <a href={h.primary.href}>{h.primary.label} <ArrowRight /></a>
+              </Button>
+              <Button asChild variant="outline" className="h-12 rounded-none border-navy/25 bg-ivory/60 px-7">
+                <a href={h.secondary.href}>{h.secondary.label}</a>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
       </div>
-
-      <a href="#presentation" className="meta-label absolute bottom-[clamp(26px,5vh,54px)] left-1/2 z-10 grid -translate-x-1/2 justify-items-center gap-3 text-ink-soft opacity-75 transition-opacity hover:opacity-100">
-        {h.scroll}
-        <i aria-hidden className="scroll-line" />
-      </a>
+      <span aria-hidden className="pointer-events-none absolute right-[-2vw] top-[12%] select-none font-serif text-[28vmin] leading-none text-navy/[0.03]">
+        {site.initials}
+      </span>
     </section>
   );
 }

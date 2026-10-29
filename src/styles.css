@@ -53,8 +53,6 @@
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-stone: var(--stone);
-  --color-ink-soft: var(--ink-soft);
-  --color-line: var(--line);
   --color-cobalt: var(--cobalt);
   --color-cobalt-deep: var(--cobalt-deep);
   --color-cobalt-foreground: var(--cobalt-foreground);
@@ -78,18 +76,15 @@
   --radius: 0.125rem;
 
   /* ── Portfolio II palette: the only place raw colour values are written ── */
-  --paper: #f9f8f7; /* artifact ivory */
-  --paper-light: #fdfcfb;
+  --paper: #f7f4ed;
+  --paper-light: #fcfbf8;
   --midnight: #0b1f37;
   --institutional: #153765;
   --deep-blue: #1e345c;
   --signal: #142c9b;
-  --ink: #0b1f37; /* artifact ink = deep navy */
+  --ink: #161a1d;
   --mist-hex: #c8dce3;
   --stone: #dad1c8;
-  --ink-soft: #3d4b5e;   /* secondary ink on paper */
-  --line: #d9d4cc;       /* hairline rules */
-  --parchment: #f3f0ea;  /* band that separates a section without a rule */
   --gold-hex: #ab894b;
   --forest-hex: #193c35;
 
@@ -101,7 +96,7 @@
   --mist: var(--mist-hex);
   --gold: var(--gold-hex);
   --forest: var(--forest-hex);
-  --gold-ink: #8a6a24; /* gold as text on paper — fixed value, AA on ivory (5.4:1) */
+  --gold-ink: color-mix(in oklch, var(--gold-hex) 62%, var(--ink)); /* gold as text on paper (AA) */
   --gold-soft: color-mix(in oklch, var(--gold-hex) 60%, white); /* gold as text on navy */
   --cobalt: var(--signal);
   --cobalt-deep: color-mix(in oklch, var(--signal) 55%, var(--midnight));
@@ -420,9 +415,7 @@
   background: var(--navy-deep);
   color: var(--paper-light);
   font-size: 0.75rem;
-  /* focus-visible, not focus: the intro hands focus here, and a mouse visitor
-     should not be shown the skip link for it. Keyboard visitors still get it. */
-  &:focus-visible { top: 1rem; }
+  &:focus { top: 1rem; }
 }
 
 @layer base {
@@ -464,59 +457,4 @@
       transition-duration: 0.01ms !important;
     }
   }
-}
-
-/* Hero scroll cue: a hairline with a gold point travelling down it. */
-.scroll-line {
-  position: relative;
-  display: block;
-  width: 1px;
-  height: 46px;
-  overflow: hidden;
-  background: var(--stone);
-}
-.scroll-line::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -14px;
-  width: 1px;
-  height: 14px;
-  background: var(--gold-ink);
-  animation: scroll-travel 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-@keyframes scroll-travel {
-  to { transform: translateY(60px); }
-}
-
-/* ───────────────────────────────────────────────────────────────────────────
-   LAYOUT — the measure the hero and every later section share.
-   ─────────────────────────────────────────────────────────────────────────── */
-:root {
-  --sec: clamp(120px, 15vw, 232px);   /* between sections */
-  --gap-h: clamp(40px, 5vw, 72px);    /* heading to content */
-  --gap-b: clamp(56px, 7vw, 104px);   /* block to block inside a section */
-}
-
-.wrap {
-  width: 100%;
-  max-width: 1120px;
-  margin-inline: auto;
-  padding-inline: max(22px, env(safe-area-inset-left, 0px)) max(22px, env(safe-area-inset-right, 0px));
-}
-
-/* ───────────────────────────────────────────────────────────────────────────
-   THE PLATE — a slowly rotating globe drawn to canvas (see Globe.tsx).
-   It fades up once its chunk has loaded; the rotation itself, and every
-   pause rule, lives in the component.
-   ─────────────────────────────────────────────────────────────────────────── */
-.plate { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; }
-.plate canvas {
-  display: block; width: 100%; height: 100%;
-  opacity: 0; transition: opacity 1.6s var(--ease-breath);
-}
-.plate[data-ready] canvas { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .plate canvas { transition: none; opacity: 1; }
 }

@@ -4,12 +4,12 @@
 // Projects come from content/projects.ts. Icons are referenced by key (mapped in components/home/Practice.tsx).
 // ─────────────────────────────────────────────────────────────────────────────
 export const home = {
-  // Agreed navigation. The section ids below are the existing ones; rename them
-  // together with these hrefs if the labels settle permanently.
   nav: [
-    { label: "About us", href: "#presentation" },
-    { label: "Fields", href: "#practice" },
+    { label: "Presentation", href: "#presentation" },
     { label: "Work", href: "#work" },
+    { label: "Practice", href: "#practice" },
+    { label: "Method", href: "#method" },
+    { label: "Context", href: "#context" },
     { label: "Contact", href: "#contact" },
   ],
 
@@ -17,13 +17,13 @@ export const home = {
   tagline: { first: "Curiosity in the questions.", second: "Rigour in the work." },
 
   hero: {
-    // Two candidate voices. HEADLINE_VARIANT in components/home/Hero.tsx picks one.
-    //   "statement" — temperament; the fields are named by the lede underneath.
-    //   "fields"    — names the fields in the headline itself, second clause in italic gold.
-    statement: ["Always discovering.", "Always learning.", "Always making."],
-    fields: { before: "International law, trade and business, ", emphasis: "read through digital systems." },
-    lede: "A student exploring French and international law, international trade, business and digital creation.",
-    scroll: "Scroll",
+    dossier: "Professional dossier",
+    contexts: "EN · FR · International",
+    headline: { before: "Law, commerce and ", emphasis: "systems", after: " for work across borders." },
+    lede: "Studies in international law, trade and business, and the digital tools built to support them.",
+    sub: "Each study begins with a legal or commercial question, and says plainly what works, what is unfinished and what comes next.",
+    primary: { label: "Selected work", href: "#work" },
+    secondary: { label: "Get in touch", href: "#contact" },
   },
 
   presentation: {
@@ -79,7 +79,7 @@ export const home = {
     note: "Working across borders",
     statement: "An international practice is also an exercise in interpretation: between languages, jurisdictions, institutions and commercial realities.",
     // Languages are claims about the owner: confirm each before release.
-    languages: ["English", "Français", "Español"],
+    languages: ["English", "Français", "Українська"],
   },
 
   contact: {

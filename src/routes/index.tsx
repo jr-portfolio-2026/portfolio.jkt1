@@ -56,12 +56,7 @@ function Home() {
   const finish = useCallback(() => {
     setSeen(true);
     setStatus("done");
-    // Hand focus to the skip link, not to <main>. Focusing <main> puts the header
-    // behind the entire page in tab order, so forward-tabbing never reaches the nav.
-    window.requestAnimationFrame(() => {
-      const skip = document.querySelector<HTMLAnchorElement>(".skip-link");
-      (skip ?? document.getElementById("main"))?.focus({ preventScroll: true });
-    });
+    window.requestAnimationFrame(() => document.getElementById("main")?.focus({ preventScroll: true }));
   }, []);
 
   const replay = useCallback(() => {
